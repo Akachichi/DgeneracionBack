@@ -1,6 +1,12 @@
+require('dotenv').config();
 const app = require('./app');
+const connectDB = require('./config/db');
+
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+// Conexión a la base de datos y luego arrancamos el servidor
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+  });
 });
