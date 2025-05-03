@@ -7,7 +7,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Rutas (por ahora vacías)
+// Rutas
+const noticiasRoutes = require('./routes/noticias.routes');
+app.use('/api/noticias', noticiasRoutes);
+
+// Ruta base
 app.get('/', (req, res) => {
   res.send('API Noticias funcionando 🎉');
 });
