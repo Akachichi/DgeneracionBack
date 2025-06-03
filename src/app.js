@@ -1,19 +1,23 @@
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
+
+import noticiasRoutes from './routes/noticias.routes.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 
 const app = express();
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
 
 // Rutas
-const noticiasRoutes = require('./routes/noticias.routes');
 app.use('/api/noticias', noticiasRoutes);
 
-// Ruta base
-app.get('/', (req, res) => {
-  res.send('API Noticias funcionando 🎉');
+//404
+app.use((req, res) => {
+  res.status(404).json({ error: 'Ruta no encontrada' });
 });
 
-module.exports = app;
+// Middleware general de manejo de errores
+app.use(errorHandler);
+
+export default app;
